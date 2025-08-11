@@ -1,0 +1,116 @@
+.login-page {
+  padding: 20px;
+  color: white;
+  direction: rtl;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.login-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #121212; /* تم تیره */
+  direction: rtl;
+  font-family: Vazirmatn, system-ui, sans-serif;
+}
+
+.login-title {
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  color: white;
+  font-weight: 600;
+  text-align: center;
+}
+
+.login-form-container {
+  background: rgba(30, 30, 30, 0.7);
+  border-radius: 12px;
+  padding: 40px;
+  width: 100%;
+  max-width: 500px;
+}
+
+.login-error {
+  text-align: center;
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: rgba(255, 0, 0, 0.1);
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  border-radius: 6px;
+  color: #ff6b6b;
+}
+
+.login-form {
+  width: 100%;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #eee;
+}
+
+.login-input {
+  height: 50px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  padding: 0 15px;
+  color: white;
+  font-size: 1rem;
+  font-family: Vazirmatn, system-ui, sans-serif;
+}
+
+.login-input:focus {
+  outline: none;
+  border-color: var(--accent-color, #e50914);
+  box-shadow: 0 0 0 2px rgba(229, 9, 20, 0.2);
+}
+
+.login-button {
+  height: 50px;
+  width: 100%;
+  background: var(--accent-color, #e50914);
+  border: none;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 30px 0;
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.login-button:hover {
+  background-color: #f40612;
+}
+
+.login-button:disabled {
+  background-color: #8a0a12;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.register-link {
+  text-align: center;
+  color: #ccc;
+}
+
+.register-link span {
+  color: var(--accent-color, #e50914);
+  cursor: pointer;
+}

@@ -1,0 +1,951 @@
+/* Adding Vazirmatn Persian font to the application */
+@font-face {
+  font-family: Vazirmatn;
+  src: url("https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/fonts/webfonts/Vazirmatn-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Vazirmatn;
+  src: url("https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/fonts/webfonts/Vazirmatn-Bold.woff2") format("woff2");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Vazirmatn;
+  src: url("https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/fonts/webfonts/Vazirmatn-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Vazirmatn;
+  src: url("https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/fonts/webfonts/Vazirmatn-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+#root {
+  max-width: 100vw; /* Use 100% of viewport width */
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  overflow-x: hidden; /* Prevent horizontal overflow */
+  box-sizing: border-box; /* Include padding and border in width calculations */
+  height: 100vh;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  direction: rtl; /* Set text direction to Right-to-Left */
+  overflow-x: hidden; /* Prevent horizontal overflow */
+  background-color: #121212; /* Dark background color */
+  color: #e0e0e0; /* Light text color for readability */
+  box-sizing: border-box; /* Include padding and border in width calculations */
+  font-family: Vazirmatn, system-ui, sans-serif;
+  width: 100vw;
+  max-width: 100vw;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+/* Responsive styles for media tiles */
+.media-tiles-container {
+  display: grid;
+  grid-template-columns: repeat(var(--movies-per-row, 6), minmax(0, 1fr));
+  gap: var(--grid-gap, 15px);
+  margin-bottom: calc(20px * var(--scale-factor, 1));
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  padding: 0 calc(25px * var(--scale-factor, 1)) calc(20px * var(--scale-factor, 1)) calc(25px * var(--scale-factor, 1));
+  direction: rtl;
+}
+
+.media-tiles-container::-webkit-scrollbar {
+  height: calc(8px * var(--scale-factor, 1)); /* Scale scrollbar height */
+}
+
+.media-tiles-container::-webkit-scrollbar-track {
+  background: #2e2e2e; /* Darker track color */
+}
+
+.media-tiles-container::-webkit-scrollbar-thumb {
+  background: #666; /* Darker thumb color */
+  border-radius: calc(4px * var(--scale-factor, 1)); /* Scale border radius */
+}
+
+.media-tiles-container::-webkit-scrollbar-thumb:hover {
+  background: #888; /* Thumb color on hover */
+}
+
+.media-tile-wrapper {
+  width: 100%;
+  position: relative;
+}
+
+.media-tile {
+  display: block;
+  position: relative;
+  background-color: #222;
+  border-radius: calc(8px * var(--scale-factor, 1));
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+  color: inherit;
+  height: 100%;
+}
+
+.media-tile:hover, .media-tile:focus {
+  transform: scale(1.03);
+  box-shadow: 0 calc(5px * var(--scale-factor, 1)) calc(15px * var(--scale-factor, 1)) rgba(0, 0, 0, 0.3);
+  outline: none;
+}
+
+.media-tile-inner {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.media-tile img {
+  width: 100%;
+  aspect-ratio: 2/3;
+  object-fit: cover;
+  vertical-align: middle;
+  border-radius: calc(8px * var(--scale-factor, 1)) calc(8px * var(--scale-factor, 1)) 0 0;
+}
+
+.media-info {
+  padding: calc(10px * var(--scale-factor, 1));
+  min-height: calc(60px * var(--scale-factor, 1));
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+  text-align: right;
+}
+
+.media-title {
+  font-size: calc(0.9em * var(--text-scale, var(--scale-factor, 1)));
+  font-weight: 500;
+  margin: 0 0 calc(5px * var(--scale-factor, 1));
+  color: white;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.media-extra-info {
+  font-size: calc(0.75em * var(--text-scale, var(--scale-factor, 1)));
+  color: #999;
+  margin: 0;
+}
+
+.media-tile p {
+    font-size: calc(1em * var(--scale-factor, 1));
+    margin-top: calc(8px * var(--scale-factor, 1));
+    word-break: break-word;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Styles for home page - align content to right */
+.main-content h2 {
+  font-size: calc(1.8em * var(--scale-factor, 1));
+  margin-bottom: calc(15px * var(--scale-factor, 1));
+  margin-top: calc(25px * var(--scale-factor, 1));
+  padding: 0 calc(25px * var(--scale-factor, 1));
+  text-align: right;
+  color: #e0e0e0;
+}
+
+/* Styles for home page - no left padding for containers */
+.main-content .media-tiles-container {
+  padding-left: calc(25px * var(--scale-factor, 1)); /* Add padding to left side */
+  direction: rtl;
+}
+
+/* Special styles for movie and series pages */
+.movie-grid-container .media-tiles-container,
+.series-grid-container .media-tiles-container,
+.movies-grid,
+.series-grid {
+  padding-left: 0; /* Remove left padding */
+}
+
+/* Adjust responsive settings for different screen sizes */
+@media (max-width: 576px) {
+  .media-tiles-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: calc(10px * var(--scale-factor, 1));
+    padding: 0 calc(10px * var(--scale-factor, 1)) calc(10px * var(--scale-factor, 1)) calc(10px * var(--scale-factor, 1));
+  }
+  
+  .main-content h2 {
+    font-size: calc(1.5em * var(--scale-factor, 1));
+    padding: 0 calc(15px * var(--scale-factor, 1));
+  }
+}
+
+@media (min-width: 577px) and (max-width: 768px) {
+  .media-tiles-container {
+    grid-template-columns: repeat(3, 1fr);
+    gap: calc(15px * var(--scale-factor, 1));
+    padding: 0 calc(15px * var(--scale-factor, 1)) calc(15px * var(--scale-factor, 1)) calc(15px * var(--scale-factor, 1));
+  }
+  
+  .main-content h2 {
+    font-size: calc(1.7em * var(--scale-factor, 1));
+    padding: 0 calc(20px * var(--scale-factor, 1));
+  }
+}
+
+@media (min-width: 769px) and (max-width: 992px) {
+  .media-tiles-container {
+    grid-template-columns: repeat(4, 1fr);
+    gap: calc(15px * var(--scale-factor, 1));
+  }
+}
+
+@media (min-width: 993px) and (max-width: 1200px) {
+  .media-tiles-container {
+    grid-template-columns: repeat(5, 1fr);
+    gap: calc(20px * var(--scale-factor, 1));
+  }
+}
+
+@media (min-width: 1201px) {
+  .media-tiles-container {
+    grid-template-columns: repeat(6, 1fr);
+    gap: calc(20px * var(--scale-factor, 1));
+  }
+}
+
+/* Basic layout for sidebar and main content */
+.app-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  max-width: 100vw;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.sidebar-wrapper {
+  flex: 0 0 calc(var(--sidebar-width) * var(--scale-factor, 1)); /* Use CSS variable for sidebar width */
+  height: 100vh;
+  position: relative;
+}
+
+.sidebar {
+  background-color: #1a1a1a;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  color: white;
+  
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: calc(var(--sidebar-width) * var(--scale-factor, 1)); /* Use CSS variable for sidebar width */
+  height: 100vh;
+  
+  padding: calc(20px * var(--scale-factor, 1)) calc(10px * var(--scale-factor, 1));
+  box-shadow: calc(-2px * var(--scale-factor, 1)) 0 calc(5px * var(--scale-factor, 1)) rgba(0, 0, 0, 0.5);
+  overflow-y: auto;
+}
+
+/* User Status in Sidebar */
+.user-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(10px * var(--scale-factor, 1));
+  margin-bottom: calc(15px * var(--scale-factor, 1));
+  background-color: #2a2a2a;
+  border-radius: calc(8px * var(--scale-factor, 1));
+  width: 100%;
+}
+
+.user-status svg {
+  margin-left: calc(8px * var(--scale-factor, 1));
+  color: #4caf50;
+}
+
+.user-status .username {
+  font-size: calc(0.9em * var(--scale-factor, 1));
+  font-weight: 500;
+  color: #e0e0e0;
+  z-index: 100;
+  box-sizing: border-box;
+}
+
+.content-wrapper {
+  flex: 1; /* Use flex: 1 to fill remaining space */
+  height: 100vh;
+  width: calc(100% - (var(--sidebar-width) * var(--scale-factor, 1))); /* Calculate width based on sidebar */
+  max-width: calc(100% - (var(--sidebar-width) * var(--scale-factor, 1))); /* Calculate max-width based on sidebar */
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+  padding-left: 0;
+  margin: 0;
+}
+
+.main-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100vh;
+  background-color: #121212;
+  color: #e0e0e0;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  #root, body {
+    overflow: auto; /* Allow scrolling on small screens */
+    padding: 0;
+    margin: 0;
+    width: 100%;
+  }
+  
+  .app-container {
+    flex-direction: column; /* Stack items vertically on smaller screens */
+    overflow: auto; /* Allow scrolling on small screens */
+    padding: 0;
+    margin: 0;
+    width: 100%;
+  }
+
+  .sidebar-wrapper {
+    flex: 0 0 calc(60px * var(--scale-factor, 1)); /* Scale height */
+    height: calc(60px * var(--scale-factor, 1));
+    width: 100%;
+    position: fixed;
+    top: auto; /* تغییر از بالا به پایین */
+    bottom: 0; /* قرار دادن در پایین صفحه */
+    z-index: 1000;
+  }
+
+  .sidebar {
+    position: fixed; /* حفظ موقعیت ثابت */
+    top: auto; /* حذف موقعیت از بالا */
+    bottom: 0; /* قرار دادن در پایین */
+    right: 0; /* حفظ موقعیت از راست */
+    width: 100%; /* عرض کامل در موبایل */
+    height: calc(60px * var(--scale-factor, 1)); /* Scale height */
+    max-height: calc(60px * var(--scale-factor, 1)); /* Scale max height */
+    padding: calc(5px * var(--scale-factor, 1)) calc(10px * var(--scale-factor, 1)); /* Scale padding */
+    flex-direction: row; /* تغییر چیدمان به افقی */
+  }
+
+  .sidebar nav ul {
+    display: flex;
+    flex-direction: row; /* چیدمان افقی */
+    justify-content: space-around; /* توزیع فضای خالی */
+    width: 100%; /* عرض کامل */
+  }
+
+  .sidebar nav li {
+    margin-bottom: 0; /* حذف فاصله پایین */
+    margin-right: calc(5px * var(--scale-factor, 1)); /* Scale margin */
+    width: auto; /* عرض خودکار */
+  }
+
+  .sidebar nav a {
+    font-size: calc(0.7em * var(--scale-factor, 1)); /* Scale font size */
+    padding: calc(5px * var(--scale-factor, 1)); /* Scale padding */
+  }
+
+  .sidebar nav a svg,
+  .sidebar nav a img {
+    font-size: calc(1.5em * var(--scale-factor, 1)); /* Scale font size */
+    margin-bottom: calc(2px * var(--scale-factor, 1)); /* Scale margin */
+    width: calc(20px * var(--scale-factor, 1)); /* Scale width */
+    height: calc(20px * var(--scale-factor, 1)); /* Scale height */
+  }
+
+  .content-wrapper {
+    margin-top: 0; /* حذف فاصله از بالا */
+    margin-bottom: calc(60px * var(--scale-factor, 1)); /* Scale margin */
+    height: calc(100vh - (60px * var(--scale-factor, 1))); /* Scale height calculation */
+    width: 100%;
+    padding: 0;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+/* Styles for Media Slider */
+.media-slider-container {
+  width: 100%; /* عرض کامل نسبت به والد */
+  background-color: #121212; /* رنگ پس‌زمینه مطابق با بقیه محتوا */
+  display: flex; /* مرکز کردن محتویات */
+  justify-content: center; /* مرکز کردن محتویات افقی */
+  align-items: center; /* مرکز کردن محتویات عمودی */
+  color: white; /* رنگ متن */
+  height: 56.25vw; /* نسبت 16:9 برای ارتفاع (9/16 * 100 = 56.25%) */
+  max-height: 70vh; /* حداکثر ارتفاع */
+  overflow: hidden; /* مخفی کردن محتوای خارج از کادر */
+  max-width: 100%; /* حداکثر عرض برابر با والد */
+  margin: 0; /* بدون حاشیه */
+  padding: 0; /* بدون فاصله داخلی */
+  box-sizing: border-box; /* محاسبه padding و border در عرض و ارتفاع */
+  position: relative; /* اطمینان از موقعیت نسبی */
+  left: auto;
+  right: auto;
+}
+
+.slider-content {
+  position: relative;
+  width: 100%;
+  height: 100%; /* Take full height of container */
+  max-width: 100%; /* حداکثر عرض برابر با والد */
+  margin: 0; /* بدون حاشیه */
+  padding: 0; /* بدون فاصله داخلی */
+  box-sizing: border-box; /* محاسبه padding و border در عرض و ارتفاع */
+  display: flex; /* اضافه کردن flexbox */
+  justify-content: center; /* مرکز کردن افقی */
+  align-items: center; /* مرکز کردن عمودی */
+}
+
+.slider-image {
+  width: 100%;
+  height: 100%; /* ارتفاع کامل */
+  object-fit: cover; /* پوشاندن کامل فضا */
+  object-position: center center; /* تنظیم موقعیت تصویر به مرکز */
+  display: block;
+  max-width: 100%; /* حداکثر عرض برابر با والد */
+  box-sizing: border-box; /* محاسبه padding و border در عرض و ارتفاع */
+}
+
+/* New styles for the overlay */
+.slider-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to left, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0) 65%), 
+                linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 40%);
+    z-index: 2;
+    box-sizing: border-box;
+}
+
+.slider-info {
+    position: absolute;
+    bottom: auto;
+    top: calc(30px * var(--scale-factor, 1));
+    right: calc(30px * var(--scale-factor, 1));
+    padding: calc(15px * var(--scale-factor, 1));
+    text-align: right;
+    color: white;
+    max-width: 50%;
+    z-index: 5; /* Ensure it's above the overlay */
+    display: flex;
+    flex-direction: column;
+    gap: calc(10px * var(--scale-factor, 1));
+    text-shadow: calc(2px * var(--scale-factor, 1)) calc(2px * var(--scale-factor, 1)) calc(4px * var(--scale-factor, 1)) rgba(0, 0, 0, 0.5);
+}
+
+.slider-info h2 {
+    margin-bottom: calc(15px * var(--scale-factor, 1)); /* Scale margin */
+    font-size: calc(3em * var(--scale-factor, 1)); /* Scale font size */
+}
+
+/* Table-like structure for media details */
+.media-details {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: calc(15px * var(--scale-factor, 1));
+    text-align: right;
+    flex-wrap: nowrap;
+}
+
+.media-details span:first-child {
+    margin-left: 0;
+}
+
+.media-details span:not(:first-child)::before {
+    content: "•";
+    position: absolute;
+    right: calc(-20px * var(--scale-factor, 1));
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.age-rating {
+    border: calc(1px * var(--scale-factor, 1)) solid white; /* Scale border */
+    padding: calc(3px * var(--scale-factor, 1)) calc(6px * var(--scale-factor, 1)); /* Scale padding */
+    border-radius: calc(4px * var(--scale-factor, 1)); /* Scale border radius */
+}
+
+.slider-buttons {
+    display: flex;
+    gap: calc(15px * var(--scale-factor, 1));
+    margin: calc(20px * var(--scale-factor, 1)) 0;
+}
+
+.slider-buttons button {
+    padding: calc(12px * var(--scale-factor, 1)) calc(25px * var(--scale-factor, 1));
+    cursor: pointer;
+    border-radius: calc(6px * var(--scale-factor, 1));
+    font-size: calc(1.2em * var(--scale-factor, 1));
+}
+
+.play-button {
+    background-color: #e50914;
+    border: none;
+    color: white;
+    margin-left: calc(10px * var(--scale-factor, 1));
+}
+
+.preview-button {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    color: white;
+}
+
+.slider-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: calc(12px * var(--scale-factor, 1)) calc(18px * var(--scale-factor, 1));
+    cursor: pointer;
+    z-index: 10;
+    font-size: calc(28px * var(--scale-factor, 1));
+    border-radius: 50%;
+    width: calc(55px * var(--scale-factor, 1));
+    height: calc(55px * var(--scale-factor, 1));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+.slider-arrow:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.left-arrow {
+    left: calc(15px * var(--scale-factor, 1));
+    right: auto;
+}
+
+.right-arrow {
+    right: calc(15px * var(--scale-factor, 1));
+    left: auto;
+}
+
+/* New styles for slider story */
+.slider-story {
+    position: absolute;
+    top: calc(50% + 40px * var(--scale-factor, 1)); /* Position below buttons */
+    right: calc(50px * var(--scale-factor, 1));
+    background-color: transparent;
+    padding: calc(10px * var(--scale-factor, 1));
+    max-width: 40%;
+    z-index: 5;
+    text-align: right;
+}
+
+.slider-story p {
+    margin: 0;
+    font-size: calc(1.1em * var(--scale-factor, 1));
+    line-height: 1.7;
+    max-height: calc(150px * var(--scale-factor, 1));
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    text-shadow: calc(2px * var(--scale-factor, 1)) calc(2px * var(--scale-factor, 1)) calc(6px * var(--scale-factor, 1)) rgba(0, 0, 0, 0.9);
+    color: white;
+    font-weight: 300;
+}
+
+/* Media queries for slider story */
+@media (max-width: 768px) {
+    .media-slider-container {
+        height: 56.25vw;
+        max-height: 50vh;
+    }
+
+    .slider-info {
+        top: calc(15px * var(--scale-factor, 1));
+        right: calc(15px * var(--scale-factor, 1));
+        padding: calc(10px * var(--scale-factor, 1));
+        max-width: 70%;
+    }
+    
+    .slider-info h2 {
+        font-size: calc(1.4em * var(--scale-factor, 1));
+        margin-bottom: calc(8px * var(--scale-factor, 1));
+    }
+    
+    .media-details {
+        margin-bottom: calc(10px * var(--scale-factor, 1));
+    }
+    
+    .media-details span {
+        font-size: calc(0.9em * var(--scale-factor, 1));
+        margin-left: calc(20px * var(--scale-factor, 1));
+    }
+    
+    .slider-buttons button {
+        padding: calc(8px * var(--scale-factor, 1)) calc(15px * var(--scale-factor, 1));
+        font-size: calc(0.9em * var(--scale-factor, 1));
+    }
+    
+    .slider-story {
+        top: calc(50% + 20px * var(--scale-factor, 1)); /* Adjusted for mobile */
+        right: calc(15px * var(--scale-factor, 1));
+        max-width: 50%;
+    }
+    
+    .slider-story p {
+        font-size: calc(0.9em * var(--scale-factor, 1));
+        max-height: calc(100px * var(--scale-factor, 1));
+        -webkit-line-clamp: 2;
+        text-shadow: calc(1px * var(--scale-factor, 1)) calc(1px * var(--scale-factor, 1)) calc(3px * var(--scale-factor, 1)) rgba(0, 0, 0, 0.9);
+    }
+    
+    .slider-buttons {
+        margin: calc(10px * var(--scale-factor, 1)) 0;
+        gap: calc(10px * var(--scale-factor, 1));
+    }
+    
+    .slider-arrow {
+        width: calc(45px * var(--scale-factor, 1));
+        height: calc(45px * var(--scale-factor, 1));
+        font-size: calc(22px * var(--scale-factor, 1));
+    }
+    
+    .left-arrow {
+        left: calc(8px * var(--scale-factor, 1));
+    }
+    
+    .right-arrow {
+        right: calc(8px * var(--scale-factor, 1));
+    }
+}
+
+@media (min-width: 1200px) {
+    .media-slider-container {
+        max-height: 80vh;
+    }
+}
+
+/* Styles for the movie grid */
+.media-grid-container {
+  display: grid;
+  /* Responsive grid: repeat columns that fit, each with a min width */
+  /* Use calc to make sure minmax considers the gap */
+  /* Adjusted minmax to roughly match tile width including padding/border */
+  grid-template-columns: repeat(auto-fill, minmax(calc(198px * var(--scale-factor, 1)), 1fr)); /* Scale minmax */
+  gap: calc(20px * var(--scale-factor, 1)); /* Scale gap */
+  padding: calc(20px * var(--scale-factor, 1)) calc(25px * var(--scale-factor, 1)); /* Scale padding */
+  max-width: 100%; /* حداکثر عرض برابر با والد */
+  box-sizing: border-box; /* محاسبه padding و border در عرض و ارتفاع */
+  margin: 0; /* بدون حاشیه */
+  overflow: hidden; /* مخفی کردن محتوای خارج از کادر */
+}
+
+/* Responsive adjustments for the grid */
+@media (max-width: 768px) {
+  .media-grid-container {
+    /* Adjusted minmax for smaller screens based on tile width 150px + padding/border */
+    grid-template-columns: repeat(auto-fill, minmax(calc(168px * var(--scale-factor, 1)), 1fr)); /* Scale minmax */
+    gap: calc(15px * var(--scale-factor, 1)); /* Scale gap */
+    padding: calc(15px * var(--scale-factor, 1)) calc(15px * var(--scale-factor, 1)); /* Scale padding */
+  }
+}
+
+@media (max-width: 576px) {
+  .media-grid-container {
+    /* Further adjust for very small screens based on tile width 120px + padding/border */
+    grid-template-columns: repeat(auto-fill, minmax(calc(138px * var(--scale-factor, 1)), 1fr)); /* Scale minmax */
+    gap: calc(10px * var(--scale-factor, 1)); /* Scale gap */
+    padding: calc(10px * var(--scale-factor, 1)) calc(10px * var(--scale-factor, 1)); /* Scale padding */
+  }
+}
+
+/* Add focus styles for keyboard navigation */
+/* Styles for focused media tiles */
+.media-tile:focus-visible {
+  outline: calc(2px * var(--scale-factor, 1)) solid #007bff; /* Scale outline */
+  outline-offset: 0px;        /* بدون فاصله */
+  border-radius: calc(8px * var(--scale-factor, 1));         /* Scale border radius */
+  box-shadow: 0 0 0 calc(2px * var(--scale-factor, 1)) #007bff66; /* Scale box shadow */
+  z-index: 2;
+}
+
+/* Styles for text within the sidebar */
+.sidebar h2 {
+    font-size: calc(1.2em * var(--scale-factor, 1)); /* Scale font size */
+    margin-bottom: calc(20px * var(--scale-factor, 1)); /* Scale margin */
+    color: #e0e0e0; /* رنگ روشن برای عنوان سایدبار */
+    display: none; /* مخفی کردن عنوان */
+}
+
+.sidebar nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%; /* عرض کامل */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* مرکز کردن آیتم‌ها */
+}
+
+.sidebar nav li {
+    margin-bottom: calc(20px * var(--scale-factor, 1)); /* Scale margin */
+    width: 100%; /* عرض کامل */
+    text-align: center; /* متن وسط چین */
+}
+
+.sidebar nav a {
+    text-decoration: none;
+    color: #b0b0b0;
+    font-size: calc(0.8em * var(--scale-factor, 1));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px 0;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.sidebar nav a svg,
+.sidebar nav a img {
+    font-size: 1.8em;
+    margin-bottom: 5px;
+    width: calc(24px * var(--scale-factor, 1));
+    height: calc(24px * var(--scale-factor, 1));
+    stroke: currentColor;
+    stroke-width: 1.5;
+}
+
+.sidebar nav a.active {
+    font-weight: bold;
+    color: #007bff; /* رنگ آبی برای آیتم فعال */
+}
+
+.sidebar nav a.active svg {
+    stroke: #007bff; /* رنگ آبی برای آیکون آیتم فعال */
+}
+
+.sidebar nav a:hover,
+.sidebar nav a:focus-visible {
+    background-color: transparent; /* حذف پس‌زمینه در هاور */
+    color: #fff; /* رنگ روشن‌تر برای متن در هاور */
+    outline: none; /* حذف خط دور پیش‌فرض */
+}
+
+/* دکمه تماشا در بالای سایدبار */
+.sidebar .watch-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: calc(8px * var(--scale-factor, 1)); /* Scale border radius */
+  padding: calc(8px * var(--scale-factor, 1)) calc(16px * var(--scale-factor, 1)); /* Scale padding */
+  margin-bottom: calc(30px * var(--scale-factor, 1)); /* Scale margin */
+  font-weight: bold;
+  cursor: pointer;
+  width: 80%;
+  text-align: center;
+}
+
+.empty-content-area {
+  min-height: calc(500px * var(--scale-factor, 1)); /* Scale min height */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: calc(8px * var(--scale-factor, 1)); /* Scale border radius */
+  margin-top: calc(20px * var(--scale-factor, 1)); /* Scale margin */
+}
+
+/* Add after the existing .media-tile styles */
+
+.media-tile.focused {
+  transform: scale(1.05);
+  box-shadow: 0 0 0 calc(3px * var(--scale-factor, 1)) #007bff, 
+              0 calc(10px * var(--scale-factor, 1)) calc(20px * var(--scale-factor, 1)) rgba(0, 0, 0, 0.5);
+  z-index: 10;
+}
+
+.media-tile.focused img {
+  transform: scale(1.02);
+  transition: all 0.2s ease;
+}
+
+.media-tile.focused .media-title {
+  color: #fff;
+  font-weight: bold;
+}
+
+/* Fix for leftmost tile when focused - stronger specificity */
+.media-tiles-container .media-tile.focused:last-child {
+  margin-left: calc(2vw * var(--scale-factor, 1)) !important; /* Scale margin */
+  transform: scale(1.08) translateX(calc(-10px * var(--scale-factor, 1))) !important; /* Scale translation */
+}
+
+/* Fix for rightmost tile when focused (first tile in RTL) */
+.media-tiles-container .media-tile:first-child {
+  margin-right: calc(5px * var(--scale-factor, 1)); /* Scale margin */
+}
+
+/* Ensure even the last focused tile has proper spacing */
+.media-tiles-container .media-tile:last-child {
+  margin-left: calc(1vw * var(--scale-factor, 1)); /* Scale margin */
+}
+
+/* استایل‌های جدید برای حالت تمام صفحه */
+.fullscreen-app {
+  width: 100vw;
+  height: 100vh;
+  display: block;
+  overflow: hidden;
+}
+
+.fullscreen-app .content-wrapper {
+  width: 100%;
+  margin-right: 0;
+  padding-right: 0;
+}
+
+/* برای تست می‌توانید یک رنگ پس‌زمینه متفاوت بگذارید */
+.fullscreen-app {
+  background-color: #000;
+}
+
+/* TV specific styles */
+.tv-device .app-container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.tv-device .sidebar {
+  width: calc(var(--sidebar-width) * var(--scale-factor, 1) * 0.9); /* Slightly reduce sidebar width on TV */
+}
+
+.tv-device .content-wrapper {
+  width: calc(100% - (var(--sidebar-width) * var(--scale-factor, 1) * 0.9));
+  max-width: calc(100% - (var(--sidebar-width) * var(--scale-factor, 1) * 0.9));
+}
+
+.tv-device .slider-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.tv-device .media-slider-container {
+  width: 100%;
+  height: 60vh; /* Increase height for TV */
+  max-height: 70vh;
+}
+
+.tv-device .slider-content {
+  width: 100%;
+  height: 100%;
+}
+
+/* Fix for media tiles on TV */
+.tv-device .media-tiles-container {
+  gap: calc(15px * var(--scale-factor, 1)); /* Reduced gap for TV */
+}
+
+/* Ensure media grid fills the screen better on TV */
+.tv-device .media-grid-container {
+  grid-template-columns: repeat(auto-fill, minmax(calc(180px * var(--scale-factor, 1)), 1fr));
+  gap: calc(15px * var(--scale-factor, 1));
+}
+
+/* Loading and error styles */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  font-size: 1.5em;
+  color: #e0e0e0;
+  text-align: center;
+}
+
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  font-size: 1.5em;
+  color: #ff6b6b;
+  text-align: center;
+  background-color: rgba(255, 107, 107, 0.1);
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px;
+}

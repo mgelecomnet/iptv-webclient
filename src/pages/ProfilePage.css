@@ -1,0 +1,35 @@
+.profile-page {
+  padding: 20px;
+  color: white;
+  direction: rtl;
+  overflow-y: auto;
+  height: 100%;
+  text-align: right;
+  font-family: Vazirmatn, system-ui, sans-serif;
+}
+
+.content-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 80vh;
+}
+
+.page-title {
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  color: white;
+  font-weight: 600;
+  text-align: center;
+}
+
+.profile-content {
+  background: rgba(30, 30, 30, 0.7);
+  border-radius: 12px;
+  padding: 30px;
+  width: 100%;
+  max-width: 800px;
+}

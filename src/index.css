@@ -1,0 +1,131 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Adding Vazirmatn Persian font to the application */
+@font-face {
+  font-family: Vazirmatn;
+  src: url("https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/fonts/webfonts/Vazirmatn-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Vazirmatn;
+  src: url("https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/fonts/webfonts/Vazirmatn-Bold.woff2") format("woff2");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Vazirmatn;
+  src: url("https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/fonts/webfonts/Vazirmatn-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Vazirmatn;
+  src: url("https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/fonts/webfonts/Vazirmatn-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  font-family: Vazirmatn, system-ui, sans-serif;
+  --scale-factor: 1;
+  --content-fill: 1;
+  --sidebar-width: 10%;
+  --content-width: 90%;
+}
+
+/* Dynamic scaling based on device-pixel-ratio */
+@media screen and (-webkit-device-pixel-ratio: 1.5),
+       screen and (device-pixel-ratio: 1.5),
+       screen and (resolution: 1.5dppx) {
+  :root {
+    --scale-factor: 0.7;
+  }
+}
+
+@media screen and (-webkit-device-pixel-ratio: 1.7),
+       screen and (device-pixel-ratio: 1.7),
+       screen and (resolution: 1.7dppx) {
+  :root {
+    --scale-factor: 0.6;
+  }
+}
+
+@media screen and (-webkit-device-pixel-ratio: 2),
+       screen and (device-pixel-ratio: 2),
+       screen and (resolution: 2dppx) {
+  :root {
+    --scale-factor: 0.5;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  font-family: Vazirmatn, system-ui, sans-serif;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Full screen mode for TV devices */
+.tv-device {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Additional TV-specific styles */
+.tv-device .media-tile:focus,
+.tv-device .media-tile.focused {
+  transform: scale(var(--tv-focus-scale, 1.1));
+  border: 2px solid var(--tv-navigation-focus-color, #007bff);
+  box-shadow: 0 0 15px rgba(0, 123, 255, 0.5);
+  z-index: 10;
+  transition: all 0.2s ease;
+}
+
+.tv-device .sidebar nav a:focus,
+.tv-device .sidebar nav a.focused {
+  color: var(--tv-navigation-focus-color, #007bff);
+  transform: scale(var(--tv-focus-scale, 1.1));
+}
+
+.tv-device .sidebar nav a:focus svg,
+.tv-device .sidebar nav a.focused svg {
+  stroke: var(--tv-navigation-focus-color, #007bff);
+}
+
+/* Improve scrolling experience on TV */
+.tv-device .media-tiles-container {
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+}
+
+.tv-device .media-tile {
+  scroll-snap-align: start;
+}
+
+/* Force full screen for TV devices */
+.tv-device #root,
+.tv-device .app-container,
+.tv-device .content-wrapper,
+.tv-device .main-content {
+  width: 100%;
+  height: 100vh;
+  max-width: 100%;
+  overflow-x: hidden;
+} 

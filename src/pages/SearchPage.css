@@ -1,0 +1,336 @@
+/* SearchPage.css - Separate styling for the search page */
+
+.search-container {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: calc(20px * var(--scale-factor, 1));
+  direction: rtl;
+  box-sizing: border-box;
+}
+
+.search-container h2 {
+  margin-bottom: calc(30px * var(--scale-factor, 1));
+  font-size: calc(2em * var(--text-scale, 1));
+  text-align: right;
+  color: #e0e0e0;
+}
+
+.search-form {
+  display: flex;
+  margin-bottom: calc(40px * var(--scale-factor, 1));
+  position: relative;
+  flex-direction: row;
+  width: 100%;
+}
+
+.search-input {
+  flex: 1;
+  padding: calc(15px * var(--scale-factor, 1)) calc(20px * var(--scale-factor, 1));
+  font-size: calc(1.1em * var(--text-scale, 1));
+  border: none;
+  border-radius: calc(8px * var(--scale-factor, 1)) 0 0 calc(8px * var(--scale-factor, 1));
+  background-color: #333;
+  color: #fff;
+  outline: none;
+  transition: background-color 0.3s ease;
+}
+
+.search-input:focus {
+  background-color: #444;
+  box-shadow: 0 0 0 calc(2px * var(--scale-factor, 1)) rgba(0, 123, 255, 0.4);
+}
+
+.search-input::placeholder {
+  color: #aaa;
+}
+
+.search-button {
+  padding: calc(15px * var(--scale-factor, 1)) calc(30px * var(--scale-factor, 1));
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 0 calc(8px * var(--scale-factor, 1)) calc(8px * var(--scale-factor, 1)) 0;
+  font-size: calc(1.1em * var(--text-scale, 1));
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+  background-color: #0069d9;
+}
+
+.search-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 calc(2px * var(--scale-factor, 1)) rgba(0, 123, 255, 0.4);
+}
+
+.search-results {
+  margin-top: calc(30px * var(--scale-factor, 1));
+  min-height: calc(300px * var(--scale-factor, 1));
+  text-align: right;
+  width: 100%;
+}
+
+.search-message {
+  color: #aaa;
+  font-size: calc(1.1em * var(--text-scale, 1));
+  text-align: center;
+  margin-top: calc(50px * var(--scale-factor, 1));
+}
+
+/* Mobile search container specific styles */
+.mobile-search .search-form {
+  margin-bottom: 20px;
+}
+
+/* Virtual Keyboard Styles */
+.virtual-keyboard {
+  width: 100%;
+  margin-top: 20px;
+  background-color: #222;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  direction: ltr;
+  outline: none;
+}
+
+.virtual-keyboard:focus {
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.6);
+}
+
+.keyboard-row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.keyboard-row:last-child {
+  margin-bottom: 0;
+}
+
+.keyboard-key {
+  min-width: 40px;
+  height: 40px;
+  margin: 0 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #333;
+  color: #e0e0e0;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.keyboard-key:hover {
+  background-color: #444;
+}
+
+.keyboard-key:active {
+  background-color: #555;
+  transform: translateY(2px);
+}
+
+.keyboard-key.focused {
+  background-color: #007bff;
+  color: white;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
+  transform: scale(1.05);
+  animation: keyPulse 1.5s infinite;
+}
+
+@keyframes keyPulse {
+  0% {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
+  }
+}
+
+.keyboard-key.space {
+  min-width: 120px;
+}
+
+.keyboard-key.backspace {
+  min-width: 80px;
+}
+
+.keyboard-key.shift {
+  min-width: 80px;
+}
+
+.keyboard-key.language {
+  min-width: 80px;
+  background-color: #007bff;
+}
+
+.keyboard-key.language:hover {
+  background-color: #0069d9;
+}
+
+.keyboard-key.language.focused {
+  background-color: #0056b3;
+  animation: keyPulse 1.5s infinite;
+}
+
+/* Responsive design */
+@media (max-width: 1200px) {
+  :root {
+    --scale-factor: 0.95;
+    --text-scale: 0.95;
+  }
+}
+
+@media (max-width: 992px) {
+  :root {
+    --scale-factor: 0.9;
+    --text-scale: 0.9;
+  }
+  
+  .search-form {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --scale-factor: 0.85;
+    --text-scale: 0.85;
+  }
+  
+  .search-container {
+    padding: calc(15px * var(--scale-factor, 1));
+    margin: calc(20px * var(--scale-factor, 1)) auto;
+  }
+  
+  .search-container h2 {
+    margin-bottom: calc(20px * var(--scale-factor, 1));
+    font-size: calc(1.6em * var(--text-scale, 1));
+  }
+  
+  .search-form {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  
+  .search-input {
+    width: 100%;
+    border-radius: calc(8px * var(--scale-factor, 1));
+    margin-bottom: calc(10px * var(--scale-factor, 1));
+  }
+  
+  .search-button {
+    width: 100%;
+    border-radius: calc(8px * var(--scale-factor, 1));
+  }
+  
+  /* Mobile-specific styles */
+  .mobile-search .search-form {
+    flex-direction: row;
+  }
+  
+  .mobile-search .search-input {
+    border-radius: calc(8px * var(--scale-factor, 1)) 0 0 calc(8px * var(--scale-factor, 1));
+    margin-bottom: 0;
+    width: auto;
+  }
+  
+  .mobile-search .search-button {
+    width: auto;
+    border-radius: 0 calc(8px * var(--scale-factor, 1)) calc(8px * var(--scale-factor, 1)) 0;
+  }
+  
+  .keyboard-key {
+    min-width: 32px;
+    height: 32px;
+    margin: 0 2px;
+    font-size: 0.9em;
+  }
+  
+  .keyboard-key.space {
+    min-width: 80px;
+  }
+  
+  .keyboard-key.backspace,
+  .keyboard-key.shift,
+  .keyboard-key.language {
+    min-width: 60px;
+  }
+}
+
+@media (max-width: 576px) {
+  :root {
+    --scale-factor: 0.8;
+    --text-scale: 0.8;
+  }
+  
+  .search-container {
+    padding: calc(10px * var(--scale-factor, 1));
+    margin: calc(10px * var(--scale-factor, 1)) auto;
+  }
+  
+  .search-container h2 {
+    margin-bottom: calc(15px * var(--scale-factor, 1));
+    font-size: calc(1.4em * var(--text-scale, 1));
+  }
+  
+  .search-form {
+    margin-bottom: 20px;
+  }
+  
+  /* Mobile-specific styles for very small screens */
+  .mobile-search .search-form {
+    flex-direction: row;
+  }
+  
+  .mobile-search .search-input {
+    font-size: 1em;
+    padding: 12px 15px;
+  }
+  
+  .mobile-search .search-button {
+    padding: 12px 20px;
+    font-size: 1em;
+  }
+  
+  .keyboard-key {
+    min-width: 24px;
+    height: 28px;
+    margin: 0 1px;
+    font-size: 0.8em;
+  }
+  
+  .keyboard-row {
+    margin-bottom: 5px;
+  }
+  
+  .keyboard-key.space {
+    min-width: 60px;
+  }
+  
+  .keyboard-key.backspace,
+  .keyboard-key.shift,
+  .keyboard-key.language {
+    min-width: 45px;
+  }
+}
+
+.search-page {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #121212;
+  color: #e0e0e0;
+  direction: rtl;
+  padding: 20px;
+  font-family: Vazirmatn, system-ui, sans-serif;
+} 

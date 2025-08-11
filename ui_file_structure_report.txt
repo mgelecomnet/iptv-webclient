@@ -1,0 +1,69 @@
+# UI and File Structure Overview
+
+This document provides an overview of the user interface (UI) and the file structure of the IPTV Web Client project.
+
+---
+
+## User Interface (UI)
+
+The UI is designed to be modern, responsive, and user-friendly, using React and Tailwind CSS. Key UI features include:
+
+- **Navigation Sidebar:** Provides access to main sections (Home, Live TV, Movies, Series, Profile, etc.).
+- **Header & Mobile Sidebar:** Responsive navigation for mobile and desktop users.
+- **Live TV Player:** Integrated Shaka Player for streaming live channels.
+- **Media Tiles & Sliders:** Display movies, series, and channels in grid and slider formats.
+- **Search Bar:** Allows users to search for movies, series, and channels.
+- **Profile Page:** Shows user information and allows profile management.
+- **Loading Indicators:** Custom loading animations for better UX.
+- **Category Browsing:** Users can filter and browse content by categories.
+- **Detail Pages:** Dedicated pages for movie and series details, including cast, description, and streaming options.
+
+All UI components are styled with Tailwind CSS for consistency and easy customization.
+
+---
+
+## File Structure
+
+The project follows a modular structure for scalability and maintainability:
+
+```
+src/
+  assets/         # Images, fonts, icons used in the UI
+  components/     # Reusable UI components (e.g., Sidebar, MediaTile, Loading, ShakaPlayer)
+  config/         # Configuration files (e.g., API endpoints)
+  contexts/       # React context providers (e.g., AuthContext)
+  image/          # Channel and app images (used in UI)
+    logo/         # Channel logos
+  pages/          # Main app pages (HomePage, LivePage, MoviesPage, SeriesPage, ProfilePage, etc.)
+  services/       # API service modules for backend communication
+  utils/          # Utility functions (e.g., device scaling)
+public/           # Static files (e.g., favicon, vite.svg)
+```
+
+### Key Folders and Files
+- **components/**: Contains all reusable UI elements, such as:
+  - `Sidebar.tsx`, `MobileSidebar.tsx`: Navigation components
+  - `MediaTile.tsx`, `MediaSlider.tsx`: Display media items
+  - `ShakaPlayer.js`, `ShakaPlayerSimple.tsx`: Video player components
+  - `Loading.tsx`: Loading animation
+  - `UserProfile.tsx`: User profile display
+- **pages/**: Contains main pages for routing:
+  - `HomePage.tsx`, `LivePage.tsx`, `MoviesPage.tsx`, `SeriesPage.tsx`, `ProfilePage.tsx`, etc.
+  - Each page has a corresponding CSS file for custom styles
+- **contexts/**: Manages global state, such as authentication
+- **services/**: Handles API requests and backend communication
+- **config/**: Stores configuration settings (e.g., API base URL)
+- **utils/**: Helper functions for device scaling and other utilities
+- **image/**: Stores images and logos used throughout the UI
+
+---
+
+## How the Structure Supports the UI
+- **Separation of Concerns:** UI components, pages, services, and configuration are separated for clarity and maintainability.
+- **Reusability:** Components are designed to be reused across different pages and contexts.
+- **Scalability:** New features or pages can be added easily by creating new files in the appropriate folders.
+- **Customization:** Tailwind CSS and modular CSS files allow for easy UI customization.
+
+---
+
+For more details, see the source code in the `src/` directory and explore the components and pages for UI implementation.

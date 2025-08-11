@@ -1,0 +1,96 @@
+# API Endpoints and Usage Report
+
+This document introduces all APIs used in the IPTV Web Client project, lists their endpoints, and explains where each is used in the application.
+
+---
+
+## Base URL
+All API endpoints use the following base URL (configured in `src/config/apiConfig.ts`):
+```
+http://192.168.1.160:8000/api
+```
+
+---
+
+## 1. Authentication API (`authService.ts`)
+
+### Endpoints:
+- **POST `/auth/login/`** — User login (credentials)
+- **POST `/auth/refresh/`** — Refresh access token
+- **GET `/auth/profile/`** — Get current user profile
+
+### Usage:
+- Used in login and authentication flows (e.g., `LoginPage.tsx`, protected routes)
+- Manages user session, token storage, and automatic token refresh
+
+---
+
+## 2. Category API (`categoryApi.ts`)
+
+### Endpoints:
+- **GET `/vod-categories/`** — Fetch all VOD categories
+- **GET `/category-movies/{categoryId}/`** — Fetch movies by category
+
+### Usage:
+- Used in category browsing pages (e.g., `CategoryPage.tsx`)
+- Allows filtering and displaying movies by category
+
+---
+
+## 3. Movie API (`movieApi.ts`)
+
+### Endpoints:
+- **GET `/movies/`** — Fetch movies (supports pagination, filtering, search)
+  - Query params: `page`, `page_size`, `type`, `ordering`, `category`, `search`, `_nocache`
+
+### Usage:
+- Used in movie browsing (`MoviesPage.tsx`), movie details (`MovieDetail.tsx`), and search pages (`SearchPage.tsx`)
+- Provides data for movie lists and details
+
+---
+
+## 4. Series API (`seriesApi.ts`)
+
+### Endpoints:
+- **GET `/movies/`** — Fetch series (with `type=series` in query params)
+  - Query params: `page`, `page_size`, `type=series`, `ordering`, `category`, `search`, `_nocache`
+
+### Usage:
+- Used in series browsing (`SeriesPage.tsx`), series details (`SeriesDetail.tsx`), and search pages
+- Provides data for series lists and details
+
+---
+
+## 5. TV Channel API (`tvChannelApi.ts`)
+
+### Endpoints:
+- **GET `/tv-channels/`** — Fetch all active TV channels
+- **GET `/featured-tv-channels/`** — Fetch featured TV channels
+
+### Usage:
+- Used in live TV pages (`LivePage.tsx`), channel lists, and channel detail views
+- Provides data for displaying and streaming live TV channels
+
+---
+
+## 6. Shared/Utility API (`api.ts`)
+
+### Usage:
+- Provides base Axios configuration for all API modules
+- Ensures consistent headers, base URL, and authentication for requests
+
+---
+
+## Summary Table
+| API Module      | Endpoint(s)                        | Used In Pages/Components                |
+|-----------------|-------------------------------------|-----------------------------------------|
+| authService     | /auth/login/, /auth/refresh/, /auth/profile/ | LoginPage, AuthContext, ProtectedRoute |
+| categoryApi     | /vod-categories/, /category-movies/{id}/      | CategoryPage                           |
+| movieApi        | /movies/                            | MoviesPage, MovieDetail, SearchPage     |
+| seriesApi       | /movies/?type=series                | SeriesPage, SeriesDetail, SearchPage    |
+| tvChannelApi    | /tv-channels/, /featured-tv-channels/         | LivePage, ChannelList, ChannelDetail   |
+| api             | (base config)                       | All API modules                         |
+
+---
+
+For more details, see the source code in `src/services/` and usage in `src/pages/` and `src/components/`.

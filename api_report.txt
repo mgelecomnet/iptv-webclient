@@ -1,0 +1,113 @@
+# API Report for IPTV Web Client
+
+This document provides an overview of the APIs used in the IPTV Web Client project and explains their functionality and usage within the application.
+
+---
+
+## API Modules
+
+The following API modules are located in `src/services/`:
+
+- `api.ts`
+- `authService.ts`
+- `categoryApi.ts`
+- `movieApi.ts`
+- `seriesApi.ts`
+- `tvChannelApi.ts`
+
+---
+
+### 1. api.ts
+**Purpose:**
+Provides a base configuration for making HTTP requests to the backend server. It typically sets up an Axios instance with default headers, base URL, and interceptors for handling requests and responses.
+
+**Usage:**
+All other API modules use this base instance to ensure consistent communication with the backend.
+
+---
+
+### 2. authService.ts
+**Purpose:**
+Handles user authentication, including login, logout, and token management.
+
+**Main Functions:**
+- `login(credentials)`: Sends user credentials to the backend and receives an authentication token.
+- `logout()`: Clears user session and tokens.
+- `getCurrentUser()`: Retrieves the current authenticated user's information.
+
+**Usage:**
+Used in authentication flows and protected routes to manage user sessions.
+
+---
+
+### 3. categoryApi.ts
+**Purpose:**
+Manages requests related to content categories (e.g., genres, channel groups).
+
+**Main Functions:**
+- `getCategories()`: Fetches a list of available categories from the backend.
+- `getCategoryDetails(id)`: Retrieves details for a specific category.
+
+**Usage:**
+Used in category browsing pages to display and filter content by category.
+
+---
+
+### 4. movieApi.ts
+**Purpose:**
+Handles requests for movie data.
+
+**Main Functions:**
+- `getMovies()`: Fetches a list of movies.
+- `getMovieDetails(id)`: Retrieves detailed information about a specific movie.
+- `searchMovies(query)`: Searches for movies based on user input.
+
+**Usage:**
+Used in movie browsing, detail, and search pages.
+
+---
+
+### 5. seriesApi.ts
+**Purpose:**
+Handles requests for series data.
+
+**Main Functions:**
+- `getSeries()`: Fetches a list of series.
+- `getSeriesDetails(id)`: Retrieves detailed information about a specific series.
+- `searchSeries(query)`: Searches for series based on user input.
+
+**Usage:**
+Used in series browsing, detail, and search pages.
+
+---
+
+### 6. tvChannelApi.ts
+**Purpose:**
+Manages requests related to live TV channels.
+
+**Main Functions:**
+- `getChannels()`: Fetches a list of available TV channels.
+- `getChannelDetails(id)`: Retrieves details for a specific channel.
+- `getLiveStreamUrl(id)`: Gets the streaming URL for a live channel.
+
+**Usage:**
+Used in live TV pages and channel detail views to display and stream live content.
+
+---
+
+## How APIs Work in the Project
+
+- All API modules use the base configuration from `api.ts` for consistent HTTP requests.
+- Authentication is managed via `authService.ts`, ensuring secure access to protected resources.
+- Content APIs (`categoryApi.ts`, `movieApi.ts`, `seriesApi.ts`, `tvChannelApi.ts`) fetch and manage data for their respective sections of the app.
+- Data fetched from APIs is used to render pages, display details, and provide search/filter functionality.
+
+---
+
+## Notes
+- API endpoints and URLs are configured in `src/config/apiConfig.ts`.
+- Error handling and loading states are managed in the UI components.
+
+---
+
+For more details, refer to the source code in the `src/services/` directory.

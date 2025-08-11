@@ -1,54 +1,99 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![IPTV Web Client](src/image/logo/1.png)](https://github.com/mgelecomnet/iptv-webclient)
 
-Currently, two official plugins are available:
+# IPTV Web Client
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+A modern web client for streaming IPTV channels, movies, and series. Built with React, TypeScript, Vite, and Tailwind CSS, this project provides a fast, responsive, and user-friendly interface for accessing live TV and video content.
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Live TV Streaming:** Watch live TV channels with integrated Shaka Player.
+- **Movies & Series:** Browse, search, and view details for movies and series.
+- **User Authentication:** Secure login and protected routes using context-based authentication.
+- **Responsive Design:** Optimized for desktop and mobile devices.
+- **Category Browsing:** Explore content by categories.
+- **Profile Management:** View and edit user profile information.
+- **Search Functionality:** Quickly find channels, movies, or series.
+- **Modern UI:** Built with Tailwind CSS for a clean and customizable look.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Technologies Used
+
+- **React** (TypeScript & JavaScript)
+- **Vite** (for fast development and build)
+- **Tailwind CSS** (for styling)
+- **Shaka Player** (for video streaming)
+- **Context API** (for state management)
+
+## Project Structure
+
+```
+src/
+  assets/         # Images, fonts, icons
+  components/     # Reusable UI components
+  config/         # API configuration
+  contexts/       # React context providers (e.g., Auth)
+  image/          # Channel and app images
+  pages/          # Main app pages (Home, Live, Movies, Series, Profile, etc.)
+  services/       # API service modules
+  utils/          # Utility functions
+public/           # Static files
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Getting Started
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Prerequisites
+- Node.js (v16 or higher recommended)
+- npm or yarn
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+### Installation
+
+1. **Clone the repository:**
+  ```sh
+  git clone https://github.com/mgelecomnet/iptv-webclient.git
+  cd iptv-webclient
+  ```
+2. **Install dependencies:**
+  ```sh
+  npm install
+  # or
+  yarn install
+  ```
+3. **Start the development server:**
+  ```sh
+  npm run dev
+  # or
+  yarn dev
+  ```
+4. **Open in browser:**
+  Visit `http://localhost:5173` (default Vite port)
+
+## Configuration
+
+- **API Endpoints:**
+  - Configure API URLs in `src/config/apiConfig.ts`.
+- **Environment Variables:**
+  - Create a `.env` file for sensitive data (if needed).
+
+## Scripts
+
+- `npm run dev` — Start development server
+- `npm run build` — Build for production
+- `npm run preview` — Preview production build
+
+## Customization
+
+- **Add Channels/Images:** Place new images in `src/image/` or `src/image/logo/`.
+- **Update Styles:** Edit Tailwind config in `tailwind.config.js` and custom CSS files.
+- **Add Pages/Components:** Create new files in `src/pages/` or `src/components/`.
+
+## Contributing
+
+Contributions are welcome! Please open issues or submit pull requests for improvements and bug fixes.
+
+## License
+
+This project is licensed under the MIT License.
+
+## Contact
+
+For questions or support, contact [mgelecomnet](https://github.com/mgelecomnet).

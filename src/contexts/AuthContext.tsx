@@ -65,11 +65,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     try {
       const loggedInUser = await authLogin({ username, password });
       setUser(loggedInUser);
-      
       // راه‌اندازی مکانیزم رفرش خودکار توکن پس از ورود
       setupTokenRefresh();
-      
-      return loggedInUser;
     } finally {
       setLoading(false);
     }

@@ -34,7 +34,7 @@ const LoginPage = ({ onLeftArrowPress, onRightArrowPress }: LoginPageProps) => {
       if (e.target === document.getElementById('username')) {
         document.getElementById('password')?.focus();
       } else if (e.target === document.getElementById('password')) {
-        document.querySelector('.login-button')?.focus();
+  (document.querySelector('.login-button') as HTMLElement | null)?.focus();
       }
     } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
       // حرکت به فیلد قبلی

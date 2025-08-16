@@ -7,23 +7,7 @@ import { fetchMovieById, Movie } from '../services/api';
 import ShakaPlayerSimple from '../components/ShakaPlayerSimple';
 
 // Sample similar movies to display (this would ideally come from an API)
-const similarMoviesSample = [
-  {
-    id: 1,
-    title: 'فیلم مشابه ۱',
-    poster: 'https://static.namava.ir/Content/Upload/Images/a42080cd-fe45-427a-a75f-909d6c25e006.jpg'
-  },
-  {
-    id: 2,
-    title: 'فیلم مشابه ۲',
-    poster: 'https://static.namava.ir/Content/Upload/Images/a42080cd-fe45-427a-a75f-909d6c25e006.jpg'
-  },
-  {
-    id: 3,
-    title: 'فیلم مشابه ۳',
-    poster: 'https://static.namava.ir/Content/Upload/Images/a42080cd-fe45-427a-a75f-909d6c25e006.jpg'
-  }
-];
+const similarMoviesSample: Array<{id: number; poster: string; title: string;}> = [];
 
 // Helper function to get director and actors from cast array
 const getDirectorAndActors = (movie: Movie) => {

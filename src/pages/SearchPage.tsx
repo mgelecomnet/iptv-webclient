@@ -24,7 +24,7 @@ function SearchPage({ onLeftArrowPress, onRightArrowPress }: SearchPageProps) {
   const [isMobileDevice, setIsMobileDevice] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const keyboardRef = useRef<HTMLDivElement>(null);
-  const searchTimeout = useRef<NodeJS.Timeout | null>(null);
+  const searchTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Check if the device is mobile
   useEffect(() => {

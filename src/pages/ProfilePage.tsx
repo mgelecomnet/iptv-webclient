@@ -49,7 +49,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ onLeftArrowPress, onRightArro
         <div 
           className="profile-content"
         >
-          <UserProfile showSettings={false} showLogout={false} />
+          <UserProfile />
         </div>
        
       </div>

@@ -40,15 +40,10 @@ const MediaTile = forwardRef<HTMLAnchorElement, MediaTileProps>(
       if (onKeyDown) {
         onKeyDown(e);
       }
-      
-      // Handle Enter key specifically for navigation
+      // Handle Enter/Space key for navigation
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        
-        // Simulate a click on the link
-        if (ref && 'current' in ref && ref.current) {
-          ref.current.click();
-        }
+        (e.currentTarget as HTMLElement).click();
       }
     };
     

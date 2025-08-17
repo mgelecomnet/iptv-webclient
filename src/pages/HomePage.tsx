@@ -1,3 +1,4 @@
+import ShakaPlayerSimple from '../components/ShakaPlayerSimple';
 import React, { useRef, useEffect, useState } from 'react';
 import '../App.css';
 import './HomePage.css';
@@ -38,6 +39,7 @@ interface MovieType {
   slideImageList: any[];
 }
 
+
 // Import TV channel logos
 import tv1Logo from '../image/logo/1.png';
 import tv2Logo from '../image/logo/2.png';
@@ -49,6 +51,7 @@ import quranLogo from '../image/logo/قران.png';
 import ifilmLogo from '../image/logo/ایفیلم.png';
 import pouyaLogo from '../image/logo/پویا.png';
 import namaeshLogo from '../image/logo/نمایش.png';
+import LiveChannelTile from '../components/LiveChannelTile';
 
 interface HomePageProps {
   onLeftArrowPress: () => void;
@@ -177,10 +180,14 @@ function HomePage({ onLeftArrowPress, onRightArrowPress }: HomePageProps) {
   const liveChannelMedia = liveChannels.map(channel => ({
     id: channel.id,
     title: channel.name,
-    poster: channel.logo || '', // Change imageUrl to poster
-    streamUrl: channel.stream_url,
-    isLive: true // Add isLive property
+    poster: channel.logo || '',
+    isLive: true,
+    streamUrl: channel.stream_url
   }));
+  // State for live player
+  const [showLivePlayer, setShowLivePlayer] = useState(false);
+  const [currentLiveUrl, setCurrentLiveUrl] = useState<string>('');
+  const [currentLiveTitle, setCurrentLiveTitle] = useState<string>('');
 
   // Convert API data to tile format
   const moviesForTiles = latestMovies.map(movie => ({
@@ -202,7 +209,7 @@ function HomePage({ onLeftArrowPress, onRightArrowPress }: HomePageProps) {
   }));
 
   // React refs and states for navigation
-  const tileRefs = useRef<Array<HTMLAnchorElement | null>>([]);
+  const tileRefs = useRef<Array<HTMLAnchorElement | HTMLDivElement | null>>([]);
   const [focusedTileIndex, setFocusedTileIndex] = useState<number | null>(null);
   const [actualTilesPerRow, setActualTilesPerRow] = useState([6, 6, 6]); // Tiles per row for each row
   const [isKeyHandlingEnabled, setIsKeyHandlingEnabled] = useState<boolean>(true);
@@ -491,29 +498,34 @@ function HomePage({ onLeftArrowPress, onRightArrowPress }: HomePageProps) {
               const tileIndex = index + moviesForTiles.length + seriesForTiles.length;
               return (
                 <div className="media-tile-wrapper" key={channel.id}>
-                  <a
-                    className={`media-tile ${focusedTileIndex === tileIndex ? 'focused' : ''}`}
-                    href={channel.streamUrl}
-                    ref={el => { tileRefs.current[tileIndex] = el; }}
+                  <LiveChannelTile
+                    id={channel.id}
+                    title={channel.title}
+                    poster={channel.poster}
+                    isLive={channel.isLive}
+                    ref={(el: HTMLDivElement | null) => { tileRefs.current[tileIndex] = el; }}
                     onFocus={() => handleTileFocus(tileIndex)}
-                    onKeyDown={e => handleTileKeyDown(e, tileIndex)}
+                    onKeyDown={(e: React.KeyboardEvent) => handleTileKeyDown(e, tileIndex)}
                     tabIndex={0}
-                  >
-                    <div className="media-tile-inner">
-                      <img 
-                        src={channel.poster} 
-                        alt={channel.title} 
-                      />
-                      {channel.isLive && <span className="live-indicator">زنده</span>}
-                      <div className="media-info">
-                        <p className="media-title">{channel.title}</p>
-                      </div>
-                    </div>
-                  </a>
+                    onPlay={() => {
+                      setCurrentLiveUrl(channel.streamUrl);
+                      setCurrentLiveTitle(channel.title);
+                      setShowLivePlayer(true);
+                    }}
+                  />
                 </div>
               );
             })}
       </div>
+      {showLivePlayer && (
+        <ShakaPlayerSimple
+          url={currentLiveUrl}
+          title={currentLiveTitle}
+          onClose={() => setShowLivePlayer(false)}
+          autoPlay={true}
+        />
+      )}
+
         </>
       )}
     </div>

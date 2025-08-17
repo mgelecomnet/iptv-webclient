@@ -22,8 +22,12 @@ function SearchPage({ onLeftArrowPress, onRightArrowPress }: SearchPageProps) {
   const [isKeyboardFocused, setIsKeyboardFocused] = useState<boolean>(false);
   const [focusedKey, setFocusedKey] = useState<{row: number, col: number} | null>(null);
   const [isMobileDevice, setIsMobileDevice] = useState<boolean>(false);
+  // --- Keyboard navigation for results ---
+  const [focusedResultIndex, setFocusedResultIndex] = useState<number | null>(null);
+  const resultRefs = useRef<Array<HTMLAnchorElement | null>>([]);
   const inputRef = useRef<HTMLInputElement>(null);
   const keyboardRef = useRef<HTMLDivElement>(null);
+  const mainContentRef = useRef<HTMLDivElement>(null);
   const searchTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Check if the device is mobile
@@ -195,6 +199,20 @@ function SearchPage({ onLeftArrowPress, onRightArrowPress }: SearchPageProps) {
               const maxCol = newRow < maxRows ? layout[newRow].length - 1 : specialKeys.length - 1;
               setFocusedKey({ row: newRow, col: Math.min(col, maxCol) });
             }
+          } else if (row === maxRows) {
+            // If on any special key in the bottom row, ArrowDown moves to first result tile if exists
+            const results = getAllResults();
+            if (results.length > 0) {
+              setIsKeyboardFocused(false);
+              setFocusedKey(null);
+              setFocusedResultIndex(0);
+              setTimeout(() => resultRefs.current[0]?.focus(), 0);
+            } else if (onRightArrowPress && col === specialKeys.length - 1) {
+              // Fallback: go to sidebar if no results and on the last key
+              setIsKeyboardFocused(false);
+              setFocusedKey(null);
+              onRightArrowPress();
+            }
           }
           break;
         case 'ArrowLeft':
@@ -260,16 +278,29 @@ function SearchPage({ onLeftArrowPress, onRightArrowPress }: SearchPageProps) {
     };
   }, [isKeyboardFocused, focusedKey, isPersianKeyboard, isShiftActive, isSearchFocused, isMobileDevice]);
 
+  const getAllResults = () => {
+    if (!searchResults) return [];
+    const movies = searchResults.movies.map((m: Movie) => ({ ...m, type: 'movie' as const }));
+    const series = searchResults.series.map((s: Movie) => ({ ...s, type: 'series' as const }));
+    return [...movies, ...series];
+  };
+
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    // Skip this logic on mobile
     if (isMobileDevice) return;
-    
+    const results = getAllResults();
+    // اگر input فوکوس است و ArrowDown زدی، اولین تایل فوکوس شود
+    if (document.activeElement === inputRef.current && e.key === 'ArrowDown' && results.length > 0) {
+      e.preventDefault();
+      setFocusedResultIndex(0);
+      setTimeout(() => resultRefs.current[0]?.focus(), 0);
+      return;
+    }
+    // ناوبری کناری
     if (e.key === 'ArrowLeft' && !isSearchFocused && !isKeyboardFocused) {
       e.preventDefault();
       if (onLeftArrowPress) {
         onLeftArrowPress();
       } else {
-        // Focus keyboard when left arrow is pressed and there's no left handler
         focusKeyboard();
       }
     } else if (e.key === 'ArrowRight' && !isSearchFocused && !isKeyboardFocused && onRightArrowPress) {
@@ -326,11 +357,75 @@ function SearchPage({ onLeftArrowPress, onRightArrowPress }: SearchPageProps) {
   }
 
   // Render a media item (movie, series or TV channel)
-  const renderMediaItem = (item: Movie, type: 'movie' | 'series') => {
-    const linkPrefix = type === 'movie' ? '/movie/' : '/series/';
-    
+  // index: index in getAllResults()
+  const renderMediaItem = (item: Movie & { type: 'movie' | 'series' }, index: number) => {
+    const linkPrefix = item.type === 'movie' ? '/movie/' : '/series/';
+    const handleTileKeyDown = (e: React.KeyboardEvent) => {
+      const results = getAllResults();
+      // Dynamically calculate tiles per row from the DOM (responsive)
+      let tilesPerRow = 1;
+      let tileIdx = index;
+      const parent = resultRefs.current[index]?.parentElement;
+      let children: Element[] = [];
+      if (parent) {
+        children = Array.from(parent.children).filter(child => child.tagName === 'A');
+        tileIdx = children.findIndex(el => el === resultRefs.current[index]);
+        if (children.length > 1) {
+          const firstTop = (children[0] as HTMLElement).offsetTop;
+          tilesPerRow = children.findIndex((el, i) => i > 0 && (el as HTMLElement).offsetTop !== firstTop);
+          if (tilesPerRow === -1) tilesPerRow = children.length; // single row
+        }
+      }
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        const next = tileIdx + tilesPerRow;
+        if (next < children.length) {
+          setFocusedResultIndex(results.findIndex((_, i) => resultRefs.current[i] === children[next]));
+          (children[next] as HTMLElement).focus();
+        } else {
+          setFocusedResultIndex(null);
+          if (inputRef.current) inputRef.current.focus();
+        }
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        const prev = tileIdx - tilesPerRow;
+        if (prev >= 0) {
+          setFocusedResultIndex(results.findIndex((_, i) => resultRefs.current[i] === children[prev]));
+          (children[prev] as HTMLElement).focus();
+        } else {
+          setFocusedResultIndex(null);
+          if (inputRef.current) inputRef.current.focus();
+        }
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        if (tileIdx % tilesPerRow !== 0) {
+          const left = tileIdx - 1;
+          setFocusedResultIndex(results.findIndex((_, i) => resultRefs.current[i] === children[left]));
+          (children[left] as HTMLElement).focus();
+        }
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        if ((tileIdx + 1) % tilesPerRow !== 0 && tileIdx + 1 < children.length) {
+          const right = tileIdx + 1;
+          setFocusedResultIndex(results.findIndex((_, i) => resultRefs.current[i] === children[right]));
+          (children[right] as HTMLElement).focus();
+        }
+      }
+      // Enter/Space: default Link behavior
+      else if (e.key === 'Tab') {
+        setFocusedResultIndex(null);
+      }
+    };
     return (
-      <Link to={`${linkPrefix}${item.id}`} className="search-result-item" key={`${type}-${item.id}`}>
+      <Link
+        to={`${linkPrefix}${item.id}`}
+        className={`search-result-item${focusedResultIndex === index ? ' focused' : ''}`}
+        key={`${item.type}-${item.id}`}
+        ref={el => { resultRefs.current[index] = el; }}
+        tabIndex={0}
+        onFocus={() => setFocusedResultIndex(index)}
+        onKeyDown={handleTileKeyDown}
+      >
         <div className="media-poster">
           <img src={item.imageUrl || item.coverPortrait || item.coverLandscape} alt={item.caption} />
         </div>
@@ -342,7 +437,7 @@ function SearchPage({ onLeftArrowPress, onRightArrowPress }: SearchPageProps) {
               <span className="age-rating">+{item.ageRange[0].value}</span>
             )}
             {item.year && <span className="year">{item.year}</span>}
-            <span className="type">{type === 'movie' ? 'فیلم' : 'سریال'}</span>
+            <span className="type">{item.type === 'movie' ? 'فیلم' : 'سریال'}</span>
           </div>
           {item.shortdescription && (
             <p className="description">{item.shortdescription}</p>
@@ -413,7 +508,7 @@ function SearchPage({ onLeftArrowPress, onRightArrowPress }: SearchPageProps) {
   }, []);
 
   return (
-    <div className="main-content" onKeyDown={handleKeyDown} tabIndex={0}>
+    <div className="main-content" ref={mainContentRef} onKeyDown={handleKeyDown} tabIndex={0}>
       <div className={`search-container ${isMobileDevice ? 'mobile-search' : ''}`}>
         <h2>جستجو</h2>
         <form className="search-form" onSubmit={handleSearchSubmit}>
@@ -458,7 +553,9 @@ function SearchPage({ onLeftArrowPress, onRightArrowPress }: SearchPageProps) {
                     <div className="result-section">
                       <h3>فیلم‌ها</h3>
                       <div className="results-grid">
-                        {searchResults.movies.map(movie => renderMediaItem(movie, 'movie'))}
+                        {getAllResults().map((item, idx) =>
+                          item.type === 'movie' ? renderMediaItem(item, idx) : null
+                        )}
                       </div>
                     </div>
                   )}
@@ -467,7 +564,9 @@ function SearchPage({ onLeftArrowPress, onRightArrowPress }: SearchPageProps) {
                     <div className="result-section">
                       <h3>سریال‌ها</h3>
                       <div className="results-grid">
-                        {searchResults.series.map(series => renderMediaItem(series, 'series'))}
+                        {getAllResults().map((item, idx) =>
+                          item.type === 'series' ? renderMediaItem(item, idx) : null
+                        )}
                       </div>
                     </div>
                   )}
